@@ -18,15 +18,28 @@ export const AnimatedCards = () => {
         setCardIndex(index - 1);
     }
 
+    const prevCard = cardIndex > 0 ?
+        (<AnimatedCard isPrevious cards={cards} cardIndex={cardIndex - 1}
+                      previousClick={() => previousCardClick(cardIndex - 1)}
+                      nextClick={() => nextCardClick(cardIndex - 1)}/>)
+        : (<></>);
+    const nextCard = cardIndex < (cards.length - 1) ?
+        (<AnimatedCard isNext cards={cards} cardIndex={cardIndex + 1}
+                      previousClick={() => previousCardClick(cardIndex + 1)}
+                      nextClick={() => nextCardClick(cardIndex + 1)}/>)
+        : (<></>);
+
     return (
         <>
             <h1>Animated Cards</h1>
             <div className={"container"}>
                 <div className={"row"}>
                     <div className={"col-6 mx-auto"}>
+                        {prevCard}
                         <AnimatedCard cards={cards} cardIndex={cardIndex}
                                       previousClick={() => previousCardClick(cardIndex)}
                                       nextClick={() => nextCardClick(cardIndex)}/>
+                        {nextCard}
                     </div>
                 </div>
             </div>
