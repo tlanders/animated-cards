@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {AnimatedCard} from "./AnimatedCard";
+import {FlipCard} from "./FlipCard";
 
 export const AnimatedCards = () => {
     const [cardIndex, setCardIndex] = useState(0);
@@ -18,31 +19,53 @@ export const AnimatedCards = () => {
         setCardIndex(index - 1);
     }
 
-    const prevCard = cardIndex > 0 ?
-        (<AnimatedCard isPrevious cards={cards} cardIndex={cardIndex - 1}
-                      previousClick={() => previousCardClick(cardIndex - 1)}
-                      nextClick={() => nextCardClick(cardIndex - 1)}/>)
+    // const prevCard = cardIndex > 0 ?
+    //     (<AnimatedCard isPrevious cards={cards} cardIndex={cardIndex - 1}
+    //                   previousClick={() => previousCardClick(cardIndex - 1)}
+    //                   nextClick={() => nextCardClick(cardIndex - 1)}/>)
+    //     : (<></>);
+    // const nextCard = cardIndex < (cards.length - 1) ?
+    //     (<AnimatedCard isNext cards={cards} cardIndex={cardIndex + 1}
+    //                   previousClick={() => previousCardClick(cardIndex + 1)}
+    //                   nextClick={() => nextCardClick(cardIndex + 1)}/>)
+    //     : (<></>);
+
+    const evenCard = cardIndex % 2 === 0 ?
+        (<FlipCard isShowing
+                      cards={cards} cardIndex={cardIndex}
+                      previousClick={() => previousCardClick(cardIndex)}
+                      nextClick={() => nextCardClick(cardIndex)}/>)
         : (<></>);
-    const nextCard = cardIndex < (cards.length - 1) ?
-        (<AnimatedCard isNext cards={cards} cardIndex={cardIndex + 1}
-                      previousClick={() => previousCardClick(cardIndex + 1)}
-                      nextClick={() => nextCardClick(cardIndex + 1)}/>)
+    const oddCard = cardIndex % 2 === 1 ?
+        (<FlipCard isShowing
+                      cards={cards} cardIndex={cardIndex}
+                      previousClick={() => previousCardClick(cardIndex)}
+                      nextClick={() => nextCardClick(cardIndex)}/>)
         : (<></>);
 
     return (
         <>
-            <h1>Animated Cards</h1>
+            <h1>Flip Cards</h1>
             <div className={"container"}>
                 <div className={"row"}>
                     <div className={"col-6 mx-auto"}>
-                        {prevCard}
-                        <AnimatedCard cards={cards} cardIndex={cardIndex}
-                                      previousClick={() => previousCardClick(cardIndex)}
-                                      nextClick={() => nextCardClick(cardIndex)}/>
-                        {nextCard}
+                        {evenCard}
+                        {oddCard}
                     </div>
                 </div>
             </div>
+            {/*<h1>Animated Cards</h1>*/}
+            {/*<div className={"container"}>*/}
+            {/*    <div className={"row"}>*/}
+            {/*        <div className={"col-6 mx-auto"}>*/}
+            {/*            {prevCard}*/}
+            {/*            <AnimatedCard cards={cards} cardIndex={cardIndex}*/}
+            {/*                          previousClick={() => previousCardClick(cardIndex)}*/}
+            {/*                          nextClick={() => nextCardClick(cardIndex)}/>*/}
+            {/*            {nextCard}*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </>
     );
 }
