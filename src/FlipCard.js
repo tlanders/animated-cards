@@ -1,8 +1,24 @@
 import classnames from 'classnames';
+import {useState} from 'react';
 
 export const FlipCard = (props) => {
     const {cards, cardIndex, isShowing, nextClick, previousClick} = props;
     const theCard = cards[cardIndex];
+    const [showValue, setShowValue] = useState(false);
+
+    const showClick = () => {
+        setShowValue(true);
+    }
+
+    const onNextClick = () => {
+        setShowValue(false);
+        nextClick();
+    }
+
+    const onPrevClick = () => {
+        setShowValue(false);
+        previousClick();
+    }
 
     return (
         <div className={classnames('card',
@@ -11,17 +27,21 @@ export const FlipCard = (props) => {
             {/*{'front-card fade-in' : isShowing},*/}
             {/*{'back-card' : !isShowing})}>*/}
             <div className="card-body">
-                <h2 className="card-title card-back">{theCard.title}</h2>
-                <p className="card-text">{theCard.desc}</p>
+                <div className={"p-3 bg-light"}>
+                    <h5 className="card-title card-back">{theCard.item}</h5>
+                    {showValue && (<h6 className="card-text m-4 text-focus-in">{theCard.translation}</h6>)}
+                    {!showValue && (<h6 className="card-text m-4">&nbsp;</h6>)}
+                    <button className={"btn btn-success col-4"} onClick={showClick}>Show</button>
+                </div>
                 <div className={"row"}>
                     <a href="#"
                        className={classnames('btn btn-primary col-4 m-2 mx-auto',
                            {'disabled' : cardIndex <= 0})}
-                       onClick={previousClick}>Previous</a>
+                       onClick={onPrevClick}>Previous</a>
                     <a href="#"
                        className={classnames('btn btn-primary col-4 m-2 mx-auto',
                            {'disabled' : cardIndex >= (cards.length - 1)})}
-                       onClick={nextClick}>Next</a>
+                       onClick={onNextClick}>Next</a>
                 </div>
             </div>
         </div>
