@@ -1,8 +1,11 @@
 import {useState} from 'react';
-import {FlipCard} from "./FlipCard";
+import {FlipButtons} from "./FlipButtons";
+import {FlipCards} from "./FlipCards";
 
 export const AnimatedCards = () => {
     const [cardIndex, setCardIndex] = useState(0);
+    const [showText, setShowText] = useState(false);
+
     const cards = [
         {item: "Hola", translation: "Hello"},
         {item: "Ir", translation: "To go"},
@@ -11,37 +14,30 @@ export const AnimatedCards = () => {
         {item: "Feliz", translation: "Happy"},
     ];
 
-    const nextCardClick = (index) => {
-        setCardIndex(index + 1);
+    const nextCardClick = () => {
+        if((cardIndex + 1) < cards.length) {
+            setShowText(false);
+            setCardIndex(cardIndex + 1);
+        }
     }
-    const previousCardClick = (index) => {
-        setCardIndex(index - 1);
+    const previousCardClick = () => {
+        if(cardIndex > 0) {
+            setShowText(false);
+            setCardIndex(cardIndex - 1);
+        }
     }
 
-    const evenCard = cardIndex % 2 === 0 ?
-        (<FlipCard isShowing
-                      cards={cards} cardIndex={cardIndex}
-                      previousClick={() => previousCardClick(cardIndex)}
-                      nextClick={() => nextCardClick(cardIndex)}/>)
-        : (<></>);
-    const oddCard = cardIndex % 2 === 1 ?
-        (<FlipCard isShowing
-                      cards={cards} cardIndex={cardIndex}
-                      previousClick={() => previousCardClick(cardIndex)}
-                      nextClick={() => nextCardClick(cardIndex)}/>)
-        : (<></>);
+    const showCardClick = () => {
+        setShowText(true);
+    }
+
+    const cardCount = cards.length;
 
     return (
         <>
             <h1>Flip Cards</h1>
-            <div className={"container"}>
-                <div className={"row"}>
-                    <div className={"col-6 mx-auto"}>
-                        {evenCard}
-                        {oddCard}
-                    </div>
-                </div>
-            </div>
+            <FlipButtons {...{cardIndex, cardCount, nextCardClick, previousCardClick, showCardClick}}/>
+            <FlipCards {...{showText, cardIndex, cards}}/>
         </>
     );
 }
