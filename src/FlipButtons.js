@@ -6,7 +6,7 @@ export const FlipButtons = (props) => {
     return (
         <div className={"container"}>
             <div className={"row p-2"}>
-                <div className={"col-lg-6 col-md-9 mx-auto"}>
+                <div className={"col-lg-6 col-md-12 mx-auto"}>
                     <div className={"row"}>
                         <button className={classnames("btn btn-primary m-2 col-3 mx-auto", {'disabled': cardIndex <= 0})}
                                 onClick={previousCardClick}>Previous
