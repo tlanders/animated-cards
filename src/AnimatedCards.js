@@ -5,34 +5,34 @@ import {FlipCards} from "./FlipCards";
 export const AnimatedCards = () => {
     const [cardIndex, setCardIndex] = useState(0);
     const [showText, setShowText] = useState(false);
-    // const [cards, setCards] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    // const [isLoading, setIsLoading] = useState(true);
+    const [cards, setCards] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(false);
     const [retryLoad, setRetryLoad] = useState(false);
 
-    // useEffect(async () => {
-    //     try {
-    //         const res = await fetch("/api/cards");
-    //         const data = await res.json();
-    //         setCards(data);
-    //         console.log('useEffect - len=' + data.length);
-    //         setIsLoading(data.length <= 0);
-    //         // setTimeout(() => setRetryLoad(!retryLoad), 15000);
-    //     } catch(e) {
-    //         // retry every 5 seconds if get an API error
-    //         console.error('card API failure=' + e);
-    //         setIsLoading(true);
-    //         setTimeout(() => setRetryLoad(!retryLoad), 5000);
-    //     }
-    // }, [retryLoad]);
+    useEffect(async () => {
+        try {
+            const res = await fetch("/api/cards");
+            const data = await res.json();
+            setCards(data);
+            console.log('useEffect - len=' + data.length);
+            setIsLoading(data.length <= 0);
+            // setTimeout(() => setRetryLoad(!retryLoad), 15000);
+        } catch(e) {
+            // retry every 5 seconds if get an API error
+            console.error('card API failure=' + e);
+            setIsLoading(true);
+            setTimeout(() => setRetryLoad(!retryLoad), 5000);
+        }
+    }, [retryLoad]);
 
-    const cards = [
-        {item: "Hola", translation: "Hello"},
-        {item: "Ir", translation: "To go"},
-        {item: "Estar", translation: "To be"},
-        {item: "El perro", translation: "The dog"},
-        {item: "Feliz", translation: "Happy"},
-    ];
+    // const cards = [
+    //     {item: "Hola", translation: "Hello"},
+    //     {item: "Ir", translation: "To go"},
+    //     {item: "Estar", translation: "To be"},
+    //     {item: "El perro", translation: "The dog"},
+    //     {item: "Feliz", translation: "Happy"},
+    // ];
 
     const nextCardClick = () => {
         if((cardIndex + 1) < cards.length) {
