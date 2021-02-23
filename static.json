@@ -5,7 +5,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://flipcards-demo-backend.herokuapp.com"
+      "origin": "https://flipcards-demo-backend.herokuapp.com/api"
     }
   }
 }
