@@ -7,7 +7,6 @@ export const AnimatedCards = () => {
     const [showText, setShowText] = useState(false);
     const [cards, setCards] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    // const [isLoading, setIsLoading] = useState(false);
     const [retryLoad, setRetryLoad] = useState(false);
 
     useEffect(async () => {
@@ -52,6 +51,14 @@ export const AnimatedCards = () => {
     const showCardClick = () => {
         setShowText(true);
     }
+
+    window.onkeydown = (event) => {
+        if(event.keyCode === 37) {
+            previousCardClick();
+        } else if(event.keyCode === 39) {
+            nextCardClick();
+        }
+    };
 
     const cardCount = cards.length;
 
