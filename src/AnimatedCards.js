@@ -12,7 +12,8 @@ export const AnimatedCards = () => {
 
     useEffect(async () => {
         try {
-            const res = await fetch("https://flipcards-demo-backend.herokuapp.com/api/cards");
+            const res = await fetch("/cards");
+            // const res = await fetch("https://flipcards-demo-backend.herokuapp.com/api/cards");
             // const res = await fetch("/api/cards");
             const data = await res.json();
             setCards(data);
